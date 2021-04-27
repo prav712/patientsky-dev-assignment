@@ -40,4 +40,9 @@ availability of a specific time slot type
 
 Example:
 http://localhost:8080/availabletimeslots?calendarIds=48cadf26-975e-11e5-b9c2-c8e0eb18c1e9,452dccfc-975e-11e5-bfa5-c8e0eb18c1e9,48644c7a-975e-11e5-a090-c8e0eb18c1e9&length=15&start=2019-04-23T08:15:00&end=2019-04-23T12:30:00
+
+###Suggestions
+I think data should be cached in order to improve the performance.
+I also ithink that it would be good if there is a separate table for 'Days' and timeslots are connectd to a Day in DayTable as a Day can have so many timeslots and looping thorough all the timeslots is not very efficient but if we have a date then we can find a corresponding day in a Day table and then we can loop through timeslots connected to it.
+
 # patientsky-dev-assignment
