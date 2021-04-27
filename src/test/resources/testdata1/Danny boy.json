@@ -1,0 +1,257 @@
+
+{
+  "appointments": [
+    {
+      "id": "1847c677-1be8-4e44-a84b-edd6751e8302",
+      "patient_id": "1bee2bf0-9751-11e5-bc1b-c8e0eb18c1e9",
+      "calendar_id": "48cadf26-975e-11e5-b9c2-c8e0eb18c1e9",
+      "start": "2019-04-23T12:15:00",
+      "end": "2019-04-23T12:30:00",
+      "patient_comment": null,
+      "note": null,
+      "time_slot_type_id": "452935de-975e-11e5-ae1a-c8e0eb18c1e9",
+      "type_id": null,
+      "state": 0,
+      "out_of_office_location": "",
+      "out_of_office": false,
+      "completed": true,
+      "is_scheduled": false
+    }
+  ],
+  "timeslots": [
+    {
+      "id": "af87de36-3690-4caa-a100-4d28b05e3d94",
+      "calendar_id": "48cadf26-975e-11e5-b9c2-c8e0eb18c1e9",
+      "type_id": "4529821e-975e-11e5-bbaf-c8e0eb18c1e9",
+      "start": "2019-04-23T08:00:00",
+      "end": "2019-04-23T08:30:00",
+      "public_bookable": true,
+      "out_of_office": false
+    },
+    {
+      "id": "af87de36-3690-4caa-a100-4d28b05e3d94",
+      "calendar_id": "48cadf26-975e-11e5-b9c2-c8e0eb18c1e9",
+      "type_id": "4529821e-975e-11e5-bbaf-c8e0eb18c1e9",
+      "start": "2019-04-23T12:00:00",
+      "end": "2019-04-23T14:30:00",
+      "public_bookable": true,
+      "out_of_office": false
+    }],
+  "timeslottypes": [
+    {
+      "id": "452935de-975e-11e5-ae1a-c8e0eb18c1e9",
+      "name": "Vanlig",
+      "slot_size": 15,
+      "public_bookable": true,
+      "color": "#ccc",
+      "icon": "icon-home",
+      "clinic_id": "00000000-0000-4000-a002-000000000002",
+      "deleted": null,
+      "out_of_office": false,
+      "enabled": false
+    },
+    {
+      "id": "4529821e-975e-11e5-bbaf-c8e0eb18c1e9",
+      "name": "Lang vanlig",
+      "slot_size": 30,
+      "public_bookable": true,
+      "color": "#999",
+      "icon": "icon-home",
+      "clinic_id": "00000000-0000-4000-a002-000000000002",
+      "deleted": null,
+      "out_of_office": false,
+      "enabled": false
+    },
+    {
+      "id": "473787c2-975e-11e5-ae1a-c8e0eb18c1e9",
+      "name": "Vanlig",
+      "slot_size": 15,
+      "public_bookable": true,
+      "color": "#ccc",
+      "icon": "icon-home",
+      "clinic_id": "00000000-0000-4000-a002-000000000002",
+      "deleted": null,
+      "out_of_office": false,
+      "enabled": false
+    },
+    {
+      "id": "4737c5de-975e-11e5-bbaf-c8e0eb18c1e9",
+      "name": "Lang vanlig",
+      "slot_size": 30,
+      "public_bookable": true,
+      "color": "#999",
+      "icon": "icon-home",
+      "clinic_id": "00000000-0000-4000-a002-000000000002",
+      "deleted": null,
+      "out_of_office": false,
+      "enabled": false
+    }
+  ],
+  "patient_meta": {
+    "00000000-0000-4000-a001-000000000001": {
+      "firstname": "Admin",
+      "middlename": "",
+      "lastname": "Adminsen",
+      "personal_id": "01097541139",
+      "birth_date": "1975-09-01",
+      "gender": "male",
+      "contacts": [
+        {
+          "location": "home",
+          "addresses": [
+            {
+              "address_type": "email",
+              "address": "utvikling@melinmedical.com"
+            },
+            {
+              "address_type": "phone",
+              "number": "40554135",
+              "type": "mobile",
+              "country_code": 47
+            },
+            {
+              "address_type": "address",
+              "street": "Borggata",
+              "number": 1,
+              "floor": 0,
+              "identifier": "A",
+              "postal_code": "0650",
+              "postal_area": "Oslo",
+              "municipal": null,
+              "county": null,
+              "country": "NO",
+              "latitude": null,
+              "longitude": null
+            }
+          ]
+        }
+      ]
+    },
+    "1b94f86e-9751-11e5-bbe0-c8e0eb18c1e9": {
+      "firstname": "Erna",
+      "middlename": null,
+      "lastname": "Huels",
+      "personal_id": "12037647061",
+      "birth_date": "1976-03-12",
+      "gender": "female",
+      "contacts": []
+    },
+    "1bae2f82-9751-11e5-940c-c8e0eb18c1e9": {
+      "firstname": "Rory",
+      "middlename": null,
+      "lastname": "Johnson",
+      "personal_id": "12037649668",
+      "birth_date": "1976-03-12",
+      "gender": "female",
+      "contacts": []
+    },
+    "1bc93318-9751-11e5-9d96-c8e0eb18c1e9": {
+      "firstname": "Nikki",
+      "middlename": null,
+      "lastname": "Wolf",
+      "personal_id": "12037649315",
+      "birth_date": "1976-03-12",
+      "gender": "male",
+      "contacts": []
+    },
+    "1bdb8194-9751-11e5-a2e7-c8e0eb18c1e9": {
+      "firstname": "Terry",
+      "middlename": null,
+      "lastname": "Johns",
+      "personal_id": "12037649234",
+      "birth_date": "1976-03-12",
+      "gender": "female",
+      "contacts": []
+    },
+    "1bee2bf0-9751-11e5-bc1b-c8e0eb18c1e9": {
+      "firstname": "Kaley",
+      "middlename": null,
+      "lastname": "Streich",
+      "personal_id": "12037649153",
+      "birth_date": "1976-03-12",
+      "gender": "male",
+      "contacts": []
+    },
+    "1c1809b6-9751-11e5-85f0-c8e0eb18c1e9": {
+      "firstname": "Celia",
+      "middlename": null,
+      "lastname": "Parker",
+      "personal_id": "12037648955",
+      "birth_date": "1976-03-12",
+      "gender": "male",
+      "contacts": []
+    },
+    "1c718efa-9751-11e5-83ca-c8e0eb18c1e9": {
+      "firstname": "Dianna",
+      "middlename": null,
+      "lastname": "Dach",
+      "personal_id": "12037648521",
+      "birth_date": "1976-03-12",
+      "gender": "male",
+      "contacts": []
+    },
+    "1c87d958-9751-11e5-9a51-c8e0eb18c1e9": {
+      "firstname": "Marc",
+      "middlename": null,
+      "lastname": "Ullrich",
+      "personal_id": "12037648289",
+      "birth_date": "1976-03-12",
+      "gender": "female",
+      "contacts": []
+    },
+    "1cabb83c-9751-11e5-9289-c8e0eb18c1e9": {
+      "firstname": "Quinton",
+      "middlename": null,
+      "lastname": "Hackett",
+      "personal_id": "12037647819",
+      "birth_date": "1976-03-12",
+      "gender": "female",
+      "contacts": []
+    },
+    "1cc65052-9751-11e5-8d84-c8e0eb18c1e9": {
+      "firstname": "Betty",
+      "middlename": null,
+      "lastname": "Haley",
+      "personal_id": "12037647738",
+      "birth_date": "1976-03-12",
+      "gender": "male",
+      "contacts": []
+    },
+    "1cd7c8d2-9751-11e5-822f-c8e0eb18c1e9": {
+      "firstname": "Guy",
+      "middlename": null,
+      "lastname": "Wolff",
+      "personal_id": "12037647657",
+      "birth_date": "1976-03-12",
+      "gender": "female",
+      "contacts": []
+    },
+    "1cefeb10-9751-11e5-95e2-c8e0eb18c1e9": {
+      "firstname": "Lazaro",
+      "middlename": null,
+      "lastname": "Yundt",
+      "personal_id": "12037647576",
+      "birth_date": "1976-03-12",
+      "gender": "male",
+      "contacts": []
+    },
+    "1cfeee58-9751-11e5-9c8d-c8e0eb18c1e9": {
+      "firstname": "Mathilde",
+      "middlename": null,
+      "lastname": "Reilly",
+      "personal_id": "12037647495",
+      "birth_date": "1976-03-12",
+      "gender": "female",
+      "contacts": []
+    },
+    "1d12c266-9751-11e5-84b2-c8e0eb18c1e9": {
+      "firstname": "Claudine",
+      "middlename": null,
+      "lastname": "Tremblay",
+      "personal_id": "12037647223",
+      "birth_date": "1976-03-12",
+      "gender": "female",
+      "contacts": []
+    }
+  }
+}
