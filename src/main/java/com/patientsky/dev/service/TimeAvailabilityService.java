@@ -53,11 +53,6 @@ public class TimeAvailabilityService {
 				&& (end.equals(period.getEnd()) || end.isBefore(period.getEnd()));
 	}
 
-	private boolean areDatesWithInPeriod(Appointment appointment, Interval period) {
-		return (appointment.getStart().equals(period.getStart()) || appointment.getStart().isAfter(period.getStart()))
-				&& (appointment.getEnd().equals(period.getEnd()) || appointment.getEnd().isBefore(period.getEnd()));
-	}
-
 	private boolean hasNoAppointmentWithInTimeSlot(UUID calendarId, TimeSlot timeSlot, List<Appointment> appointmentsWithInPeriod) {
 		return appointmentsWithInPeriod
 				.stream()
