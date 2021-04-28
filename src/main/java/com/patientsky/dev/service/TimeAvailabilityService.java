@@ -42,7 +42,7 @@ public class TimeAvailabilityService {
 						.filter(timeSlot -> timeSlot.getCalendar_id().equals(calendarId)
 								&& areDatesWithInPeriod(timeSlot.getStart(), timeSlot.getEnd(), period)
 								&& hasMatchingTimSlotType(length, timeSlotTypeId, timeSlot)
-								&& hasNoAppointmentWithInTimeSlot(calendarId, timeSlot, appointmentsWithInPeriod))
+								&& hasNoAppointmentsOverlappingTimeSlot(calendarId, timeSlot, appointmentsWithInPeriod))
 						.collect(Collectors.toList()))
 				.flatMap(Collection::stream)
 				.collect(Collectors.toList());
@@ -53,7 +53,7 @@ public class TimeAvailabilityService {
 				&& (end.equals(period.getEnd()) || end.isBefore(period.getEnd()));
 	}
 
-	private boolean hasNoAppointmentWithInTimeSlot(UUID calendarId, TimeSlot timeSlot, List<Appointment> appointmentsWithInPeriod) {
+	private boolean hasNoAppointmentsOverlappingTimeSlot(UUID calendarId, TimeSlot timeSlot, List<Appointment> appointmentsWithInPeriod) {
 		return appointmentsWithInPeriod
 				.stream()
 				.noneMatch(appointment -> calendarId.equals(appointment.getCalendar_id()) &&
