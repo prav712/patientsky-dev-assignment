@@ -15,7 +15,7 @@
       "out_of_office_location": "",
       "out_of_office": false,
       "completed": true,
-      "is_scheduled": false
+      "is_scheduled": true
     }
   ],
   "timeslots": [

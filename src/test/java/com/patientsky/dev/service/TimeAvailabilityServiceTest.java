@@ -1,4 +1,4 @@
-package com.patientsky.dev;
+package com.patientsky.dev.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,7 +29,7 @@ class TimeAvailabilityServiceTest {
 	private TimeAvailabilityService timeAvailabilityService;
 
 	@Test
-	public void shouldReturnTwoAvailableTimeSlots() {
+	void shouldReturnTwoAvailableTimeSlots() {
 		DateTime from = FORMATTER.parseDateTime("2019-04-23T18:15:00");
 		DateTime to = FORMATTER.parseDateTime("2019-04-23T19:30:00");
 
@@ -43,7 +43,7 @@ class TimeAvailabilityServiceTest {
 	}
 
 	@Test
-	public void shouldReturnTwoAvailableTimeSlotsForTypeUuid() {
+	void shouldReturnTwoAvailableTimeSlotsForTypeUuid() {
 		DateTime from = FORMATTER.parseDateTime("2019-04-23T18:15:00");
 		DateTime to = FORMATTER.parseDateTime("2019-04-23T19:30:00");
 

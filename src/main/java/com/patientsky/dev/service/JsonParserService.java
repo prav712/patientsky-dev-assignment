@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,19 +35,21 @@ public class JsonParserService {
 			objectMapper.setTimeZone(TimeZone.getTimeZone("Europe/Oslo"));
 			objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 			objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-			walk(Paths.get(folderPath))
-					.filter(Files::isRegularFile)
-					.map(Path::toFile)
-					.forEach(file -> {
-						try {
-							CalendarData calendarData = objectMapper.readValue(file, CalendarData.class);
-							rv.getAppointments().addAll(calendarData.getAppointments());
-							rv.getTimeslots().addAll(calendarData.getTimeslots());
-							rv.getTimeslottypes().addAll(calendarData.getTimeslottypes());
-						} catch (IOException e) {
-							logger.error(e.getMessage());
-						}
-					});
+			try (Stream<Path> walk = walk(Paths.get(folderPath))) {
+			            walk
+						.filter(Files::isRegularFile)
+						.map(Path::toFile)
+						.forEach(file -> {
+							try {
+								CalendarData calendarData = objectMapper.readValue(file, CalendarData.class);
+								rv.getAppointments().addAll(calendarData.getAppointments());
+								rv.getTimeslots().addAll(calendarData.getTimeslots());
+								rv.getTimeslottypes().addAll(calendarData.getTimeslottypes());
+							} catch (IOException e) {
+								logger.error(e.getMessage());
+							}
+						});
+			}
 
 		} catch (IOException e) {
 			logger.error(e.getMessage());

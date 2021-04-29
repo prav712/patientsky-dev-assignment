@@ -1,20 +1,17 @@
 package com.patientsky.dev;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.patientsky.dev.model.TimeSlot;
 import com.patientsky.dev.service.TimeAvailabilityService;
 import org.apache.logging.log4j.util.Strings;
-import org.joda.time.Chronology;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
