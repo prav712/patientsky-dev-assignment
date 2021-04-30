@@ -45,6 +45,6 @@ http://localhost:8080/availabletimeslots?calendarIds=48cadf26-975e-11e5-b9c2-c8e
 
 ### Suggestions
 I think data should be cached in order to improve the performance.
-I also ithink that it would be good if there is a separate table for 'Days' and timeslots are connectd to a Day in DayTable as a Day can have so many timeslots and looping thorough all the timeslots is not very efficient but if we have a date then we can find a corresponding day in a Day table and then we can loop through timeslots connected to it.
+I also ithink that it would be good if there is a separate table for 'Days' where timeslots are connectd to a Day in that table as a Day can have so many timeslots and looping thorough all the timeslots is not very efficient but if we have a date(Day) then we can find a corresponding day in a Day table and then we can loop through timeslots connected to it.
 
 # patientsky-dev-assignment
