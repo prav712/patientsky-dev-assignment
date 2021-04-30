@@ -1,5 +1,12 @@
 package com.patientsky.dev.service;
 
+import com.patientsky.dev.model.Appointment;
+import com.patientsky.dev.model.CalendarData;
+import com.patientsky.dev.model.TimeSlot;
+import org.joda.time.DateTime;
+import org.joda.time.Interval;
+import org.springframework.stereotype.Service;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.Collection;
@@ -8,16 +15,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.patientsky.dev.model.Appointment;
-import com.patientsky.dev.model.CalendarData;
-import com.patientsky.dev.model.TimeSlot;
-import org.joda.time.DateTime;
-import org.joda.time.Interval;
-import org.springframework.stereotype.Service;
-
 @Service
 public class TimeAvailabilityService {
-	private static final String FILE_PATH = "src/main/resources/calendardata";
+	private static final String FOLDER_PATH = "src/main/resources/calendardata";
 	private CalendarData calendarData;
 	private final JsonParserService jsonParserService;
 
@@ -27,15 +27,16 @@ public class TimeAvailabilityService {
 
 	@PostConstruct
 	private void init() {
-		calendarData = jsonParserService.jsonToPojo(FILE_PATH);
+		calendarData = jsonParserService.jsonToPojo(FOLDER_PATH);
 	}
 
 	public List<TimeSlot> findAvailableTime(List<UUID> calendarIds, int length, Interval period, UUID timeSlotTypeId) {
 		final List<Appointment> appointmentsWithInPeriod = calendarData.getAppointments()
 				.stream()
-				.filter(appointment -> areDatesWithInPeriod(appointment.getStart(), appointment.getEnd(), period))
 				.filter(appointment -> timeSlotTypeId == null || appointment.getTime_slot_type_id().equals(timeSlotTypeId))
+				.filter(appointment -> areDatesWithInPeriod(appointment.getStart(), appointment.getEnd(), period))
 				.collect(Collectors.toList());
+
 		return calendarIds.stream()
 				.map(calendarId -> calendarData.getTimeslots()
 						.stream()

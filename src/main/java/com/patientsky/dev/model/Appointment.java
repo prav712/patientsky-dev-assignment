@@ -1,12 +1,12 @@
 package com.patientsky.dev.model;
 
-import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
+
+import java.util.UUID;
 
 @Builder
 @Data
