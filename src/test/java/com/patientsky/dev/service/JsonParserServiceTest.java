@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Map;
+import java.util.UUID;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 
@@ -21,11 +24,13 @@ class JsonParserServiceTest {
 
     @Test
     void shouldParseJsonToCalendarDataCorrectly() {
-        final CalendarData calendarData = jsonParserService.jsonToPojo("src/test/resources/testdata1");
+        final Map<UUID, CalendarData> calendarDataMap = jsonParserService.jsonToPojo("src/test/resources/testdata1");
 
         //testdata1 has Danny boy.json file which contains lesser data (for testing purpose)
-        assertThat(calendarData.getAppointments(), hasSize(1));
-        assertThat(calendarData.getTimeslots(), hasSize(2));
-        assertThat(calendarData.getTimeslottypes(), hasSize(4));
+        calendarDataMap.forEach((uuid, calendarData) -> {
+            assertThat(calendarData.getAppointments(), hasSize(1));
+            assertThat(calendarData.getTimeslots(), hasSize(2));
+            assertThat(calendarData.getTimeslottypes(), hasSize(4));
+        });
     }
 }

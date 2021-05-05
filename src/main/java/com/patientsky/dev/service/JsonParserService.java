@@ -13,8 +13,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import static com.patientsky.dev.util.TimeAvailabilityUtil.EUROPE_OSLO;
@@ -25,11 +27,8 @@ import static java.util.TimeZone.getTimeZone;
 public class JsonParserService {
 	private static final Logger logger = LoggerFactory.getLogger(JsonParserService.class.getName());
 
-	public CalendarData jsonToPojo(String folderPath) {
-		CalendarData calendarDataContainer = CalendarData.builder().appointments(new ArrayList<>())
-				.timeslots(new ArrayList<>())
-				.timeslottypes(new ArrayList<>())
-				.build();
+	public Map<UUID, CalendarData> jsonToPojo(String folderPath) {
+		Map<UUID, CalendarData> calendarDataByCalendarId = new HashMap<>();
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.registerModule(new JodaModule());
@@ -37,15 +36,14 @@ public class JsonParserService {
 			objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 			objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 			try (Stream<Path> walk = walk(Paths.get(folderPath))) {
-			            walk
+				walk
 						.filter(Files::isRegularFile)
 						.map(Path::toFile)
 						.forEach(file -> {
 							try {
-								CalendarData calendarData = objectMapper.readValue(file, CalendarData.class);
-								calendarDataContainer.getAppointments().addAll(calendarData.getAppointments());
-								calendarDataContainer.getTimeslots().addAll(calendarData.getTimeslots());
-								calendarDataContainer.getTimeslottypes().addAll(calendarData.getTimeslottypes());
+								Optional.ofNullable(objectMapper.readValue(file, CalendarData.class))
+										.ifPresent(calendarData -> Optional.ofNullable(calendarData.getAppointments())
+												.ifPresent(appointments -> calendarDataByCalendarId.put(appointments.get(0).getCalendar_id(), calendarData)));
 							} catch (IOException e) {
 								logger.error(e.getMessage());
 							}
@@ -54,9 +52,8 @@ public class JsonParserService {
 
 		} catch (IOException e) {
 			logger.error(e.getMessage());
-			return calendarDataContainer;
+			return calendarDataByCalendarId;
 		}
-		calendarDataContainer.setTimeslottypes(calendarDataContainer.getTimeslottypes().stream().distinct().collect(Collectors.toList()));
-		return calendarDataContainer;
+		return calendarDataByCalendarId;
 	}
 }

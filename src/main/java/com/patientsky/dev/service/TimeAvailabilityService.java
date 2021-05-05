@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -18,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class TimeAvailabilityService {
 	private static final String FOLDER_PATH = "src/main/resources/calendardata";
-	private CalendarData calendarData;
+	private Map<UUID, CalendarData> calendarDataMap;
 	private final JsonParserService jsonParserService;
 
 	public TimeAvailabilityService(JsonParserService jsonParserService) {
@@ -27,23 +29,25 @@ public class TimeAvailabilityService {
 
 	@PostConstruct
 	private void init() {
-		calendarData = jsonParserService.jsonToPojo(FOLDER_PATH);
+		calendarDataMap = jsonParserService.jsonToPojo(FOLDER_PATH);
 	}
 
 	public List<TimeSlot> findAvailableTime(List<UUID> calendarIds, int length, Interval period, UUID timeSlotTypeId) {
-		final List<Appointment> appointmentsWithInPeriod = calendarData.getAppointments()
+		Map<UUID, List<Appointment>> apptsByCalendarId = new HashMap<>();
+
+		calendarIds.forEach(calendarId -> apptsByCalendarId.put(calendarId, calendarDataMap.get(calendarId).getAppointments()
 				.stream()
 				.filter(appointment -> timeSlotTypeId == null || appointment.getTime_slot_type_id().equals(timeSlotTypeId))
 				.filter(appointment -> areDatesWithInPeriod(appointment.getStart(), appointment.getEnd(), period))
-				.collect(Collectors.toList());
+				.collect(Collectors.toList())));
 
 		return calendarIds.stream()
-				.map(calendarId -> calendarData.getTimeslots()
+				.map(calendarId -> calendarDataMap.get(calendarId).getTimeslots()
 						.stream()
 						.filter(timeSlot -> timeSlot.getCalendar_id().equals(calendarId)
 								&& areDatesWithInPeriod(timeSlot.getStart(), timeSlot.getEnd(), period)
 								&& hasMatchingTimSlotType(length, timeSlotTypeId, timeSlot)
-								&& hasNoAppointmentsOverlappingTimeSlot(calendarId, timeSlot, appointmentsWithInPeriod))
+								&& hasNoAppointmentsOverlappingTimeSlot(calendarId, timeSlot, apptsByCalendarId.get(calendarId)))
 						.collect(Collectors.toList()))
 				.flatMap(Collection::stream)
 				.collect(Collectors.toList());
@@ -63,7 +67,7 @@ public class TimeAvailabilityService {
 	}
 
 	private boolean hasMatchingTimSlotType(int length, UUID timeSlotTypeId, TimeSlot timeSlot) {
-		return calendarData.getTimeslottypes()
+		return calendarDataMap.get(timeSlot.getCalendar_id()).getTimeslottypes()
 				.stream()
 				.anyMatch(timeSlotType -> Optional.ofNullable(timeSlotTypeId)
 						.map(slotTypeId -> slotTypeId.equals(timeSlotType.getId()) && timeSlotType.getId().equals(timeSlot.getType_id()) && timeSlotType.getSlot_size() == length)
@@ -72,6 +76,6 @@ public class TimeAvailabilityService {
 
 	@PreDestroy
 	public void preDestroy() {
-		calendarData = null;
+		calendarDataMap = null;
 	}
 }
