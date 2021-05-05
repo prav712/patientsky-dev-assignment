@@ -42,8 +42,7 @@ public class JsonParserService {
 						.forEach(file -> {
 							try {
 								Optional.ofNullable(objectMapper.readValue(file, CalendarData.class))
-										.ifPresent(calendarData -> Optional.ofNullable(calendarData.getAppointments())
-												.ifPresent(appointments -> calendarDataByCalendarId.put(appointments.get(0).getCalendar_id(), calendarData)));
+										.ifPresent(calendarData ->  calendarDataByCalendarId.put(calendarData.getTimeslots().get(0).getCalendar_id(), calendarData));
 							} catch (IOException e) {
 								logger.error(e.getMessage());
 							}
